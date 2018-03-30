@@ -1,0 +1,7 @@
+I:\MyDocuments\Programming\C# Charts and Graphics for _NET Applications_files\Examples_Chart\Examples\Chart2DLib\Chart2DLib\bin\Debug\Chart2DLib.dll
+I:\MyDocuments\Programming\C# Charts and Graphics for _NET Applications_files\Examples_Chart\Examples\Chart2DLib\Chart2DLib\bin\Debug\Chart2DLib.pdb
+I:\MyDocuments\Programming\C# Charts and Graphics for _NET Applications_files\Examples_Chart\Examples\Chart2DLib\Chart2DLib\obj\Debug\ResolveAssemblyReference.cache
+I:\MyDocuments\Programming\C# Charts and Graphics for _NET Applications_files\Examples_Chart\Examples\Chart2DLib\Chart2DLib\obj\Debug\Chart2DLib.Chart2D.resources
+I:\MyDocuments\Programming\C# Charts and Graphics for _NET Applications_files\Examples_Chart\Examples\Chart2DLib\Chart2DLib\obj\Debug\Chart2DLib.csproj.GenerateResource.Cache
+I:\MyDocuments\Programming\C# Charts and Graphics for _NET Applications_files\Examples_Chart\Examples\Chart2DLib\Chart2DLib\obj\Debug\Chart2DLib.dll
+I:\MyDocuments\Programming\C# Charts and Graphics for _NET Applications_files\Examples_Chart\Examples\Chart2DLib\Chart2DLib\obj\Debug\Chart2DLib.pdb

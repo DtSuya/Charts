@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C776CBEB-B1D5-4C50-B3C9-70F3B1D7BFAA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Readearth.Chart2D</RootNamespace>
+    <AssemblyName>Readearth.Chart2D</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>0</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AreaCharts.cs" />
+    <Compile Include="BarCharts.cs" />
+    <Compile Include="Chart2D.cs" />
+    <Compile Include="ChartElements\Axes.cs" />
+    <Compile Include="ChartElements\Labels.cs" />
+    <Compile Include="ChartElements\Grid.cs" />
+    <Compile Include="ChartElements\Title.cs" />
+    <Compile Include="ChartStyle.cs" />
+    <Compile Include="BasicStyle\ColorMap.cs" />
+    <Compile Include="Data\DataCollection.cs" />
+    <Compile Include="AxisFit.cs" />
+    <Compile Include="Data\DataCollectionArea.cs" />
+    <Compile Include="Data\DataCollectionBar.cs" />
+    <Compile Include="Data\DataCollectionPie.cs" />
+    <Compile Include="Data\DataSeries.cs" />
+    <Compile Include="Additional\DataSource.cs" />
+    <Compile Include="Additional\Enumproperty.cs" />
+    <Compile Include="BasicStyle\GraphColor.cs" />
+    <Compile Include="ChartElements\Legend.cs" />
+    <Compile Include="LineCharts.cs" />
+    <Compile Include="BasicStyle\LineStyle.cs" />
+    <Compile Include="Additional\MakePicture.cs" />
+    <Compile Include="PieCharts.cs" />
+    <Compile Include="PolarCharts.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubChart.cs" />
+    <Compile Include="BasicStyle\SymbolStyle.cs" />
+    <Compile Include="BasicStyle\TextStyle.cs" />
+    <Compile Include="Additional\TimeConverter.cs" />
+    <Compile Include="TextFileReader.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

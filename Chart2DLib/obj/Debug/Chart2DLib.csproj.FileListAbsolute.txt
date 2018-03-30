@@ -1,0 +1,57 @@
+C:\Users\lenovo\Desktop\Chart\C# Charts and Graphics for _NET Applications_files\Examples_Chart\Examples\Chart2DLib\Chart2DLib\bin\Debug\Chart2DLib.dll
+C:\Users\lenovo\Desktop\Chart\C# Charts and Graphics for _NET Applications_files\Examples_Chart\Examples\Chart2DLib\Chart2DLib\bin\Debug\Chart2DLib.pdb
+C:\Users\lenovo\Desktop\Chart\C# Charts and Graphics for _NET Applications_files\Examples_Chart\Examples\Chart2DLib\Chart2DLib\obj\Debug\Chart2DLib.Chart2D.resources
+C:\Users\lenovo\Desktop\Chart\C# Charts and Graphics for _NET Applications_files\Examples_Chart\Examples\Chart2DLib\Chart2DLib\obj\Debug\Chart2DLib.csproj.GenerateResource.Cache
+C:\Users\lenovo\Desktop\Chart\C# Charts and Graphics for _NET Applications_files\Examples_Chart\Examples\Chart2DLib\Chart2DLib\obj\Debug\Chart2DLib.dll
+C:\Users\lenovo\Desktop\Chart\C# Charts and Graphics for _NET Applications_files\Examples_Chart\Examples\Chart2DLib\Chart2DLib\obj\Debug\Chart2DLib.pdb
+D:\1上海地听\环科院\空气质量月报\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.dll
+D:\1上海地听\环科院\空气质量月报\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.pdb
+D:\1上海地听\环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.Chart2D.resources
+D:\1上海地听\环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.csproj.GenerateResource.Cache
+D:\1上海地听\环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.dll
+D:\1上海地听\环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.pdb
+D:\1上海地听\环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.csprojResolveAssemblyReference.cache
+E:\1上海地听\上海环科院\空气质量月报\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.dll
+E:\1上海地听\上海环科院\空气质量月报\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.pdb
+E:\1上海地听\上海环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.Chart2D.resources
+E:\1上海地听\上海环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.csproj.GenerateResource.Cache
+E:\1上海地听\上海环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.dll
+E:\1上海地听\上海环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.pdb
+E:\1上海地听\上海环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.csprojResolveAssemblyReference.cache
+E:\1上海地听\S上海环科院\空气质量月报\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.dll
+E:\1上海地听\S上海环科院\空气质量月报\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.pdb
+E:\1上海地听\S上海环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.csprojResolveAssemblyReference.cache
+E:\1上海地听\S上海环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.Chart2D.resources
+E:\1上海地听\S上海环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.csproj.GenerateResource.Cache
+E:\1上海地听\S上海环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.dll
+E:\1上海地听\S上海环科院\空气质量月报\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.pdb
+E:\1上海地听\Z_Test\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.dll
+E:\1上海地听\Z_Test\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.pdb
+E:\1上海地听\Z_Test\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.csprojResolveAssemblyReference.cache
+E:\1上海地听\Z_Test\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.Chart2D.resources
+E:\1上海地听\Z_Test\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.csproj.GenerateResource.Cache
+E:\1上海地听\Z_Test\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.dll
+E:\1上海地听\Z_Test\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.pdb
+E:\1Readearth\Z_Test\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.csprojResolveAssemblyReference.cache
+E:\1Readearth\Z_Test\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.Chart2D.resources
+E:\1Readearth\Z_Test\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.csproj.GenerateResource.Cache
+E:\1Readearth\Z_Test\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.dll
+E:\1Readearth\Z_Test\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.pdb
+E:\1Readearth\Z_Test\ChartProduce\Chart2DLib\bin\Debug\DBUtility.dll
+E:\1Readearth\Z_Test\ChartProduce\Chart2DLib\bin\Debug\DBUtility.pdb
+E:\1Readearth\Z_Test\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.dll
+E:\1Readearth\Z_Test\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.pdb
+E:\1Readearth\Z_Test\Chart\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.csprojResolveAssemblyReference.cache
+E:\1Readearth\Z_Test\Chart\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.Chart2D.resources
+E:\1Readearth\Z_Test\Chart\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.csproj.GenerateResource.Cache
+E:\1Readearth\Z_Test\Chart\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.dll
+E:\1Readearth\Z_Test\Chart\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.pdb
+E:\1Readearth\Z_Test\Chart\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.dll
+E:\1Readearth\Z_Test\Chart\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.pdb
+E:\1Readearth\Z_Test\Chart\ChartProduce\Chart2DLib\bin\Debug\DBUtility.dll
+E:\1Readearth\Charts\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.dll
+E:\1Readearth\Charts\ChartProduce\Chart2DLib\bin\Debug\Chart2DLib.pdb
+E:\1Readearth\Charts\ChartProduce\Chart2DLib\bin\Debug\DBUtility.dll
+E:\1Readearth\Charts\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.dll
+E:\1Readearth\Charts\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.pdb
+E:\1Readearth\Charts\ChartProduce\Chart2DLib\obj\Debug\Chart2DLib.csprojResolveAssemblyReference.cache

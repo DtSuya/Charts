@@ -1,0 +1,4 @@
+E:\1Readearth\Charts\ChartProduce\Chart2DLib\bin\Debug\Readearth.Chart2D.dll
+E:\1Readearth\Charts\ChartProduce\Chart2DLib\bin\Debug\Readearth.Chart2D.pdb
+E:\1Readearth\Charts\ChartProduce\Chart2DLib\obj\Debug\Readearth.Chart2D.dll
+E:\1Readearth\Charts\ChartProduce\Chart2DLib\obj\Debug\Readearth.Chart2D.pdb
