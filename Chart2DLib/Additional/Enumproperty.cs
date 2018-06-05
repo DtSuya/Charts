@@ -5,7 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.ComponentModel;
 
-namespace Readearth.Chart2D.Addtional
+namespace Readearth.Chart2D.Additional
 {
     public static class EnumProperty
     {

@@ -14,11 +14,11 @@ namespace Readearth.Chart2D.ChartElements
         private LineStyle gridStyle;
         private bool isXGrid = true;
         private bool isYGrid = true;
-        //private Chart2D chart2d;
+        private bool isRGrid = true;
+        private bool isAgGrid = true;
 
         public Grid()
         {
-            //chart2d = ct2d;
             gridStyle = new LineStyle();
             gridStyle.LineColor = Color.LightGray;
         }
@@ -43,6 +43,26 @@ namespace Readearth.Chart2D.ChartElements
             set
             {
                 isYGrid = value;
+                //chart2d.AddChart();
+            }
+        }
+
+        public bool IsRGrid
+        {
+            get { return isRGrid; }
+            set
+            {
+                isRGrid = value;
+                //chart2d.AddChart();
+            }
+        }
+
+        public bool IsAgGrid
+        {
+            get { return isAgGrid; }
+            set
+            {
+                isAgGrid = value;
                 //chart2d.AddChart();
             }
         }

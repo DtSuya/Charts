@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Drawing;
 
-namespace Readearth.Chart2D.Addtional
+namespace Readearth.Chart2D.Additional
 {
     public class MakePicture
     {

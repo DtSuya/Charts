@@ -5,11 +5,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Readearth.Chart2D.BasicStyle;
-using Readearth.Chart2D.Addtional;
+using Readearth.Chart2D.Additional;
 
 namespace Readearth.Chart2D.ChartElements
 {
-    public enum TickMarkFrom
+    enum TickMarkFrom
     {
         None = 0,
         TimeStamp = 1,
@@ -295,6 +295,10 @@ namespace Readearth.Chart2D.ChartElements
                 if (x < count && i < XTickMark.Length)
                     xTickMarkFull[x] = XTickMark[i];
             }
+            for (int n = 0; n < count; n++)
+            {
+                xTickMarkFull[n] = (xTickMarkFull[n] == null) ? string.Empty : xTickMarkFull[n];
+            }
         }
 
         internal float XTickAngle
@@ -532,4 +536,241 @@ namespace Readearth.Chart2D.ChartElements
         }
     }
 
+    public class RAxis
+    {
+        private PolarCharts.AngleDirectionEnum angleDirection = PolarCharts.AngleDirectionEnum.CounterClockWise;
+        private TextStyle rtickStyle = new TextStyle();
+        private float rMin = 0f;
+        private float rMax = 10f;
+        private float rTick = 2f;
+        private float startAngle = 0;
+        private float angleStep = 30;
+        private string[] rMark;
+        private int rmarkInterval = 1;
+        private string[] rMarkFull;
+        private TickMarkFrom rmarkFrom = TickMarkFrom.None;
+ 
+        public RAxis()
+        {
+            rtickStyle.TextSize = 9;
+        }
+
+        public TextStyle RTickStyle
+        {
+            get { return rtickStyle; }
+            set { rtickStyle = value; }
+        }
+
+        public float RTick
+        {
+            get { return rTick; }
+            set { rTick = value; }
+        }
+
+        public float RMax
+        {
+            get { return rMax; }
+            set { rMax = value; }
+        }
+
+        public float RMin
+        {
+            get { return rMin; }
+            set { rMin = value; }
+        }
+
+        public float StartAngle
+        {
+            get { return startAngle; }
+            set { startAngle = value; }
+        }
+
+        public float AngleStep
+        {
+            get { return angleStep; }
+            set { angleStep = value; }
+        }
+
+        public PolarCharts.AngleDirectionEnum AngleDirection
+        {
+            get { return angleDirection; }
+            set { angleDirection = value; }
+        }
+        public int RMarkInterval
+        {
+            get { return rmarkInterval; }
+            set
+            {
+                rmarkInterval = (value >= 1) ? value : 1;
+                setRMarkFull();
+            }
+        }
+        public string[] RMark
+        {
+            get
+            {
+                if (rMark == null)
+                    defaultRMark();
+                return rMark;
+            }
+            set
+            {
+                rMark = value;
+                if (rMark == null)
+                {
+                    rmarkFrom = TickMarkFrom.None;
+                    defaultRMark();
+                }
+                else
+                {
+                    rmarkFrom = TickMarkFrom.Strings;
+                    refreshRMark();
+                }
+            }
+        }
+
+        public void SetRMark(string[] rtickmarks)
+        {
+            if (rtickmarks != null)
+            {
+                rMark = rtickmarks;
+                rmarkFrom = TickMarkFrom.Strings;
+                refreshRMark();
+            }
+
+        }
+        public void SetRMark(string[] rtickmarks, int interval)
+        {
+            if (rtickmarks != null)
+            {
+                rMark = rtickmarks;
+                rmarkFrom = TickMarkFrom.Strings;
+                RMarkInterval = interval;
+                refreshRMark();
+            }
+
+        }
+        /// <summary>
+        /// 默认tick标记内容
+        /// </summary>
+        private void defaultRMark()
+        {
+            int count = (int)Math.Floor(360 / AngleStep);
+            if (count < 1 || count > 720)
+                return;
+            rMark = new string[count];
+            float angleTick = 0;
+            for (int i = 0; i < count; i++)
+            {
+                if (AngleDirection == PolarCharts.AngleDirectionEnum.ClockWise)
+                {
+                    angleTick = i * AngleStep;
+                }
+                else if (AngleDirection == PolarCharts.AngleDirectionEnum.CounterClockWise)
+                {
+                    angleTick = 360 - i * AngleStep;
+                    if (i == 0)
+                        angleTick = 0;
+                }
+                rMark[i] = DataDeal.FloatAccur(angleTick).ToString();
+            }
+            setRMarkFull();
+        }
+        /// <summary>
+        /// 由于AngleStep变化引起的tickmark刷新
+        /// 待完善：AngleStep变大时marks完整，否则出现不完整状况
+        /// 建议先设置AngleStep,再赋值tickmark
+        /// </summary>
+        private void refreshRMark()
+        {
+            int count = (int)Math.Floor(360 / AngleStep);
+            if (count < 1 || count > 720)
+                return;
+            string[] newmarks = new string[count];
+            float angleTick = 0;
+            if (rmarkFrom == TickMarkFrom.None)
+            {
+                for (int n = 0; n < count; n++)
+                {
+                    if (AngleDirection == PolarCharts.AngleDirectionEnum.ClockWise)
+                    {
+                        angleTick = n * AngleStep;
+                    }
+                    else if (AngleDirection == PolarCharts.AngleDirectionEnum.CounterClockWise)
+                    {
+                        angleTick = 360 - n * AngleStep;
+                        if (n == 0)
+                            angleTick = 0;
+                    }
+                    if (Math.Abs(angleTick - Math.Round(angleTick, 7)) < 0.000002)
+                        angleTick = (float)Math.Round(angleTick, 6);
+                    newmarks[n] = angleTick.ToString();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    if (i < rMark.Length)
+                        newmarks[i] = rMark[i];
+                    else
+                        newmarks[i] = string.Empty;
+                }
+            }
+            rMark = newmarks;
+            setRMarkFull();
+        }
+
+        /// <summary>
+        /// 所有tick标记
+        /// </summary>
+        internal string[] RMarkFull
+        {
+            get
+            {
+                if (rMarkFull == null)
+                    setRMarkFull();
+                return rMarkFull;
+            }
+        }
+        /// <summary>
+        /// 补全间隔情况下所有tick标记内容
+        /// </summary>
+        private void setRMarkFull()
+        {
+            int count = (int)Math.Floor(360 / AngleStep);
+            rMarkFull = new string[count];
+            for (int i = 0; i < count; i++)
+            {
+                int x = i * RMarkInterval;
+                if (x < count && i < RMark.Length)
+                    rMarkFull[x] = RMark[i];
+            }
+            for (int n = 0; n < count; n++)
+            {
+                rMarkFull[n] = (rMarkFull[n] == null) ? string.Empty : rMarkFull[n];
+            }
+        }
+
+        /// <summary>
+        /// R坐标轴样式复制
+        /// </summary>
+        /// <returns></returns>
+        public RAxis Clone()
+        {
+            RAxis newRA = new RAxis();
+            newRA.RMin = this.RMin;
+            newRA.RMax = this.RMax;
+            newRA.RTick = this.RTick;
+            newRA.StartAngle = this.StartAngle;
+            newRA.AngleStep = this.AngleStep;
+            newRA.AngleDirection = this.AngleDirection;
+            newRA.RMarkInterval = this.RMarkInterval;
+            newRA.RMark = this.RMark;
+            newRA.RTickStyle = this.RTickStyle.Clone();
+            return newRA;
+        }
+    }
+
+    
 }

@@ -28,6 +28,7 @@ namespace Readearth.Chart2D
         private XAxis xa = new XAxis();
         private YAxis ya = new YAxis();
         private Y2Axis y2a = new Y2Axis();
+        private RAxis ra = new RAxis();
         private Grid gd = new Grid();
         private XYLabel lb = new XYLabel();
         private Title tl = new Title();
@@ -85,7 +86,7 @@ namespace Readearth.Chart2D
                 y2a.IsY2Axis = isY2;
 
                 //坐标轴检查，返回自适应是否开启,待完善
-                isAxesfit = AxisFit.AxesFitCheck(dclist, xa, ya, y2a);
+                isAxesfit = AxisFit.AxesFitCheck(dclist, xa, ya, y2a, ra);
 
                 //基础要素布局
                 if (isSquare)
@@ -98,7 +99,7 @@ namespace Readearth.Chart2D
                     //极坐标图
                     //额外处理：绘图区PlotArea颜色调整，与总体Area内部颜色一致
                     cs.PlotAreaColor.Border = cs.PlotAreaColor.Fill = cs.ChartAreaColor.Fill;
-                    cs.AddChartStylePolar(g, tl, lb, gd, xa, ya, y2a, lg, dclist);
+                    cs.AddChartStylePolar(g, tl, gd, ra, lg, dclist);
                 }
 
                 //数据排序绘制
@@ -113,6 +114,11 @@ namespace Readearth.Chart2D
                         BarCharts.AddBars((DataCollectionBar)dc, g, cs, xa, ya, y2a);
                     else if (dc.ChartType == Chart2DTypeEnum.PieChart)
                         PieCharts.AddPie((DataCollectionPie)dc, g, cs);
+                    else if (dc.ChartType == Chart2DTypeEnum.PolorChart)
+                    {
+                        PolarCharts.AddPolar((DataCollectionPolar)dc, g, cs, ra);
+                        cs.AddRosebarTick(g, ra);
+                    }
                 }
                 if (lg.IsLegendVisible)
                     lg.AddLegend(g, dclist, cs, tl);
@@ -144,6 +150,7 @@ namespace Readearth.Chart2D
             string[] datatypes = new string[dclist.Count];
             int lines,areas,bars,pies,polars;
             lines = areas = bars = pies = polars =0;
+            List<DataCollectionPolar> lstPolar = new List<DataCollectionPolar>();
             for(int n=0;n<dclist.Count;n++)
             {
                 datatypes[n] = dclist[n].ChartType.ToString();
@@ -155,13 +162,31 @@ namespace Readearth.Chart2D
                     bars++;
                 else if (datatypes[n] == Chart2DTypeEnum.PieChart.ToString())
                     pies++;
-                else if(datatypes[n] == Chart2DTypeEnum.PolorChart.ToString())
+                else if (datatypes[n] == Chart2DTypeEnum.PolorChart.ToString())
+                {
                     polars++;
+                    lstPolar.Add((DataCollectionPolar)dclist[n]);
+                }
             }
-            if (lines > 0 && areas <= 1 && bars <= 1 && pies + polars < 1)
+            if (lines >= 0 && areas <= 1 && bars <= 1 && pies + polars < 1)
                 isSuccess = true;
             else if (polars > 0 && lines + areas + bars + pies < 1)
-                isSuccess = true;
+            {
+                if (polars == 1)
+                    isSuccess = true;
+                else
+                {
+                    int radars = 0; int roses = 0;
+                    foreach(DataCollectionPolar dcp in lstPolar)
+                    {
+                        if (dcp.PolarChartType == PolarCharts.PolarChartTypeEnum.Rose)
+                            roses++;
+                        else
+                            radars++;
+                    }
+                    isSuccess = (radars > 0 && roses > 0) ? false : true;
+                }
+            }
             else if (pies == 1 && lines + areas + bars + polars < 1)
                 isSuccess = true;
             else
@@ -172,7 +197,7 @@ namespace Readearth.Chart2D
 
             return isSuccess;
         }
-        //图标组合叠放顺序
+        //图表叠放顺序
         internal void CombineOrder()
         {
             //鸡尾酒排序法
@@ -274,6 +299,14 @@ namespace Readearth.Chart2D
             y2a.Y2LimMax = y2LimMax;
             y2a.Y2Tick = y2Tick;
         }
+
+        public void SetRAxis(float rLimMin, float rLimMax, float rTick)
+        {
+            ra.RMin = rLimMin;
+            ra.RMax = rLimMax;
+            ra.RTick = rTick;
+        }
+
         //数据清空
         public void DataClear()
         {
@@ -303,6 +336,7 @@ namespace Readearth.Chart2D
             this.XAxis = new XAxis();
             this.YAxis = new YAxis();
             this.Y2Axis = new Y2Axis();
+            this.RAxis = new RAxis();
         }
 
         public Chart2D Clone()
@@ -312,6 +346,7 @@ namespace Readearth.Chart2D
             newChart.XAxis = this.XAxis.Clone();
             newChart.YAxis = this.YAxis.Clone();
             newChart.Y2Axis = this.Y2Axis.Clone();
+            newChart.RAxis = this.RAxis.Clone();
             newChart.Grid = this.Grid.Clone();
             newChart.Legend = this.Legend.Clone();
             newChart.Title = this.Title.Clone();
@@ -388,6 +423,19 @@ namespace Readearth.Chart2D
                 if (value != null)
                 {
                     this.y2a = value;
+                }
+            }
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public RAxis RAxis
+        {
+            get { return this.ra; }
+            set
+            {
+                if (value != null)
+                {
+                    this.ra = value;
                 }
             }
         }

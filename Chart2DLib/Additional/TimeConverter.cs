@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Readearth.Chart2D.Addtional
+namespace Readearth.Chart2D.Additional
 {
     public static class TimeConverter
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using Readearth.Chart2D.BasicStyle;
-using Readearth.Chart2D.Addtional;
+using Readearth.Chart2D.Additional;
 
 namespace Readearth.Chart2D.Data
 {

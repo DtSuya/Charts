@@ -70,7 +70,7 @@ namespace Readearth.Chart2D.Data
             set { dataSeriesIndex = value; }
         }
 
-        public void Add(DataSeries ds)
+        public virtual void Add(DataSeries ds)
         {
             dataSeriesList.Add(ds);
             if (ds.SeriesName == "")
@@ -167,12 +167,21 @@ namespace Readearth.Chart2D.Data
                         ds.FillColor = Color.FromArgb(cmap[n, 0], cmap[n, 1], cmap[n, 2], cmap[n, 3]);
                         //ds.LineStyle.LineColor = Color.Black;
                     }
+                    else if (ChartType == Chart2DTypeEnum.PolorChart)
+                    {
+                        DataCollectionPolar dc = this as DataCollectionPolar;
+                        if(dc.PolarChartType == PolarCharts.PolarChartTypeEnum.Radar || dc.PolarChartType == PolarCharts.PolarChartTypeEnum.Spline)
+                            ds.LineStyle.LineColor = Color.FromArgb(cmap[n, 0], cmap[n, 1], cmap[n, 2], cmap[n, 3]);
+                        else if(dc.PolarChartType == PolarCharts.PolarChartTypeEnum.RadarPolygon || dc.PolarChartType == PolarCharts.PolarChartTypeEnum.Rose)
+                            ds.FillColor = Color.FromArgb(cmap[n, 0], cmap[n, 1], cmap[n, 2], cmap[n, 3]);
+                    }
+
                 }
                 else
                 {
                     if (ChartType == Chart2DTypeEnum.LineChart)
                         ds.LineStyle.LineColor = Color.Black;
-                    else if (ChartType == Chart2DTypeEnum.AreaChart || ChartType == Chart2DTypeEnum.BarChart || ChartType == Chart2DTypeEnum.PieChart)
+                    else if (ChartType == Chart2DTypeEnum.AreaChart || ChartType == Chart2DTypeEnum.BarChart || ChartType == Chart2DTypeEnum.PieChart || ChartType == Chart2DTypeEnum.PolorChart)
                     {
                         ds.LineStyle.LineColor = Color.Black;
                         ds.FillColor = Color.Red;

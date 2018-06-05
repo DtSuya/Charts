@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 //using Readearth.Data;
 
-namespace Readearth.Chart2D.Addtional
+namespace Readearth.Chart2D.Additional
 {
     //public class DataSource
     //{

@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 using Readearth.Chart2D.ChartElements;
 using Readearth.Chart2D.BasicStyle;
 using Readearth.Chart2D.Data;
+using Readearth.Chart2D.Additional;
 
 namespace Readearth.Chart2D
 {
@@ -146,8 +147,7 @@ namespace Readearth.Chart2D
             SolidBrush aBrush = new SolidBrush(xa.XTickStyle.TextColor);
             for (fX = xa.XLimMin; fX <= xa.XLimMax; fX += xa.XTick)
             {
-                if (Math.Abs(fX - Math.Round(fX, 7)) < 0.000002)
-                    fX = (float)Math.Round(fX, 7);
+                fX = DataDeal.FloatAccur(fX);
                 PointF yAxisPoint = Point2D(new PointF(fX, ya.YLimMin), xa, ya);
                 g.DrawLine(Pens.Black, yAxisPoint, new PointF(yAxisPoint.X, yAxisPoint.Y - 5f));
 
@@ -161,8 +161,7 @@ namespace Readearth.Chart2D
             SizeF tickFontSize = g.MeasureString("A", ya.YTickStyle.TextFont);
             for (fY = ya.YLimMin; fY <= ya.YLimMax; fY += ya.YTick)
             {
-                if (Math.Abs(fY - Math.Round(fY, 7)) < 0.000002)
-                    fY = (float)Math.Round(fY, 7);
+                fY = DataDeal.FloatAccur(fY);
                 PointF xAxisPoint = Point2D(new PointF(xa.XLimMin, fY), xa, ya);
                 g.DrawLine(Pens.Black, xAxisPoint, new PointF(xAxisPoint.X + 5f, xAxisPoint.Y));
 
@@ -177,8 +176,7 @@ namespace Readearth.Chart2D
                 tickFontSize = g.MeasureString("A", y2a.Y2TickStyle.TextFont);
                 for (fY = y2a.Y2LimMin; fY <= y2a.Y2LimMax; fY += y2a.Y2Tick)
                 {
-                    if (Math.Abs(fY - Math.Round(fY, 7)) < 0.000002)
-                        fY = (float)Math.Round(fY, 7);
+                    fY = DataDeal.FloatAccur(fY);
                     PointF x2AxisPoint = Point2DY2(new PointF(xa.XLimMax, fY), xa, y2a);
                     g.DrawLine(Pens.Black, x2AxisPoint, new PointF(x2AxisPoint.X - 5f, x2AxisPoint.Y));
 
@@ -222,8 +220,7 @@ namespace Readearth.Chart2D
             for (int i =0; i <ycount ; i++)
             {
                 float yTick = ya.YLimMin + i * ya.YTick;
-                if (Math.Abs(yTick - Math.Round(yTick, 7)) < 0.000002)
-                    yTick = (float)Math.Round(yTick, 7);
+                yTick = DataDeal.FloatAccur(yTick);
                 SizeF tempSize = g.MeasureString(yTick.ToString(), ya.YTickStyle.TextFont);
                 if (yTickSize.Width < tempSize.Width)
                 {
@@ -251,8 +248,7 @@ namespace Readearth.Chart2D
                 for (int i =0; i <ycount ; i++)
                 {
                     float y2Tick = y2a.Y2LimMin + i * y2a.Y2Tick;
-                    if (Math.Abs(y2Tick - Math.Round(y2Tick, 7)) < 0.000002)
-                        y2Tick = (float)Math.Round(y2Tick, 7);
+                    y2Tick = DataDeal.FloatAccur(y2Tick);
                     SizeF tempSize2 = g.MeasureString(y2Tick.ToString(), y2a.Y2TickStyle.TextFont);
                     if (y2TickSize.Width < tempSize2.Width)
                     {
@@ -332,15 +328,14 @@ namespace Readearth.Chart2D
         private void AddGirdSquare(Graphics g, Grid gd, XAxis xa, YAxis ya)
         {
             float fX, fY;
-            Pen aPen = new Pen(gd.GridColor, 1f);
+            Pen aPen = new Pen(gd.GridColor, gd.GridThickness);
             aPen.DashStyle = gd.GridPattern;
             //绘制垂直格网：
             if (gd.IsYGrid == true)
             {
                 for (fX = xa.XLimMin + xa.XTick; fX < xa.XLimMax; fX += xa.XTick)
                 {
-                    if (Math.Abs(fX - Math.Round(fX, 7)) < 0.000002)
-                        fX = (float)Math.Round(fX, 7);
+                    fX = DataDeal.FloatAccur(fX);
                     //注：float类型变量的精度损失处理
                     g.DrawLine(aPen, Point2D(new PointF(fX, ya.YLimMin), xa, ya), Point2D(new PointF(fX, ya.YLimMax), xa, ya));
                 }
@@ -351,8 +346,7 @@ namespace Readearth.Chart2D
             {
                 for (fY = ya.YLimMin + ya.YTick; fY < ya.YLimMax; fY += ya.YTick)
                 {
-                    if (Math.Abs(fY - Math.Round(fY, 7)) < 0.000002)
-                        fY = (float)Math.Round(fY, 7);
+                    fY = DataDeal.FloatAccur(fY);
                     g.DrawLine(aPen, Point2D(new PointF(xa.XLimMin, fY), xa, ya), Point2D(new PointF(xa.XLimMax, fY), xa, ya));
                 }
             }
@@ -669,7 +663,7 @@ namespace Readearth.Chart2D
             SolidBrush aBrush = new SolidBrush(xa.XTickStyle.TextColor);
             SizeF sizeXTick;
 
-            //出现在SetPlotArea和AddTicks中三轴循环
+            //出现在SetPlotArea和AddTicks中轴循环
             //for(float xTick = xa.XLimMin; xTick <= xa.XLimMax; xTick += xa.XTick)
             //弃用原因1：防止Tick为0时出现死循环
             //弃用原因2：float的精度损失程度累加
@@ -678,8 +672,7 @@ namespace Readearth.Chart2D
             for (int i = 0; i < count; i++)
             {
                 fX = xa.XLimMin + i * xa.XTick;
-                if (Math.Abs(fX - Math.Round(fX, 7)) < 0.000002)
-                    fX = (float)Math.Round(fX, 7);
+                fX = DataDeal.FloatAccur(fX);
                 PointF yAxisPoint = Point2D(new PointF(fX, ya.YLimMin), xa, ya);
                 g.DrawLine(Pens.Black, yAxisPoint, new PointF(yAxisPoint.X, yAxisPoint.Y - 5f));
 
@@ -705,8 +698,7 @@ namespace Readearth.Chart2D
             for (int i=0; i < ycount ;i++)
             {
                 fY = ya.YLimMin + i * ya.YTick;
-                if (Math.Abs(fY - Math.Round(fY, 7)) < 0.000002)
-                    fY = (float)Math.Round(fY, 7);
+                fY = DataDeal.FloatAccur(fY);
                 PointF xAxisPoint = Point2D(new PointF(xa.XLimMin, fY), xa, ya);
                 g.DrawLine(Pens.Black, xAxisPoint, new PointF(xAxisPoint.X + 5f, xAxisPoint.Y));
 
@@ -723,8 +715,7 @@ namespace Readearth.Chart2D
                 for (int i = 0; i < y2count ; i++)
                 {
                     fY = y2a.Y2LimMin + i * y2a.Y2Tick;
-                    if (Math.Abs(fY - Math.Round(fY, 7)) < 0.000002)
-                        fY = (float)Math.Round(fY, 7);
+                    fY = DataDeal.FloatAccur(fY);
                     PointF x2AxisPoint = Point2DY2(new PointF(xa.XLimMax, fY), xa, y2a);
                     g.DrawLine(Pens.Black, x2AxisPoint, new PointF(x2AxisPoint.X - 5f, x2AxisPoint.Y));
 
@@ -750,7 +741,7 @@ namespace Readearth.Chart2D
         /// <param name="tl"></param>
         /// <param name="lg"></param>
         /// <param name="dcs"></param>
-        internal void AddChartStylePolar(Graphics g, Title tl, XYLabel lb, Grid gd, XAxis xa, YAxis ya, Y2Axis y2a, Legend lg, List<DataCollection> dcs)
+        internal void AddChartStylePolar(Graphics g, Title tl, Grid gd, RAxis ra, Legend lg, List<DataCollection> dcs)
         {
             //图例外置
             lg.IsInside = false;
@@ -759,6 +750,19 @@ namespace Readearth.Chart2D
             FillColorInChartAreas(g);
             //绘制标题（通用）
             AddTitle(g, tl);
+
+            if (dcs[0].ChartType == Chart2DTypeEnum.PolorChart)
+            {
+                AddGridPolar(g, gd, ra);
+                if (((DataCollectionPolar)dcs[0]).PolarChartType != PolarCharts.PolarChartTypeEnum.Rose)
+                    AddTicksPolar(g, ra);
+            }
+
+        }
+        //只用于柱形玫瑰图
+        internal void AddRosebarTick(Graphics g, RAxis ra)
+        {
+            AddTicksPolar(g, ra);
         }
         /// <summary>
         /// 设置极坐标图的绘图区位置，大小
@@ -827,8 +831,73 @@ namespace Readearth.Chart2D
             int plotX = (int)(ChartArea.X + leftMargin + xsurplus / 2);
             int plotY = (int)(ChartArea.Y + topMargin + ysurplus / 2);
             plotArea = new Rectangle(plotX, plotY, diameter, diameter);
-            //考虑到Pie的突出情况，预留1/10的空间，PieCharts实际绘制区为polarArea
+            //考虑到Pie的突出和Polar的标绘情况，边缘预留1/10的空间，PieCharts实际绘制区为polarArea
             polarArea = new Rectangle(plotX + diameter / 12, plotY + diameter / 12, diameter * 10 / 12, diameter * 10 / 12);
+        }
+
+
+        private void AddGridPolar(Graphics g, Grid gd, RAxis ra)
+        {
+            Pen aPen = new Pen(gd.GridColor, gd.GridThickness);
+            aPen.DashStyle = gd.GridPattern;
+            float xc = polarArea.X + polarArea.Width / 2;
+            float yc = polarArea.Y + polarArea.Height / 2;
+
+            int tickCount = Convert.ToInt32(Math.Ceiling((ra.RMax - ra.RMin) / ra.RTick));
+            float dr = polarArea.Width / 2.0f / tickCount;
+
+            // Draw circles:
+            for (int i = 0; i < tickCount; i++)
+            {
+                RectangleF rect1 = new RectangleF(xc - (i + 1) * dr, yc - (i + 1) * dr, 
+                                    2 * (i + 1) * dr, 2 * (i + 1) * dr);
+                g.DrawEllipse(aPen, rect1);
+            }
+
+            // Draw radii:
+            for (int i = 0; i < (int)360 / ra.AngleStep; i++)
+            {
+                PointF edgePt = Point2DR(new PointF(ra.StartAngle + i * ra.AngleStep, ra.RMax), ra);
+                g.DrawLine(aPen, xc, yc, edgePt.X, edgePt.Y);
+            }
+
+        }
+
+        private void AddTicksPolar(Graphics g, RAxis ra)
+        {
+            SolidBrush aBrush = new SolidBrush(ra.RTickStyle.TextColor);
+            StringFormat sFormat = new StringFormat();
+            float xc = polarArea.X + polarArea.Width / 2;
+            float yc = polarArea.Y + polarArea.Height / 2;
+            int tickCount = Convert.ToInt32(Math.Ceiling((ra.RMax - ra.RMin) / ra.RTick));
+            float dr = polarArea.Width / 2 / tickCount;
+
+            // Draw the radius labels:值标记
+            sFormat.Alignment = StringAlignment.Near;
+            for (int i = 0; i <= tickCount; i++)
+            {
+                float fY = ra.RMin + i * ra.RTick;
+                fY = DataDeal.FloatAccur(fY);
+                g.DrawString(fY.ToString(), ra.RTickStyle.TextFont, aBrush, new PointF(xc, yc - i * dr - 0.2f * dr), sFormat);
+            }
+
+            // Draw the angle labels:方向标记
+            sFormat.Alignment = StringAlignment.Center;
+            SizeF tickFontSize = g.MeasureString("A", ra.RTickStyle.TextFont);
+            float angleLabel = 0;
+            int angledir = 1;
+            for (int i = 0; i < (int)360 / ra.AngleStep; i++)
+            {
+                if (ra.AngleDirection == PolarCharts.AngleDirectionEnum.ClockWise)
+                    angledir = 1;
+                else if (ra.AngleDirection == PolarCharts.AngleDirectionEnum.CounterClockWise)
+                    angledir = -1;
+
+                float x = (RNorm(ra.RMax, ra) + polarArea.Width / 10f * 2 / 3) * (float)Math.Cos((ra.StartAngle + i * ra.AngleStep) * angledir * Math.PI / 180) + xc;
+                float y = (RNorm(ra.RMax, ra) + polarArea.Width / 10f * 2 / 3) * (float)Math.Sin((ra.StartAngle + i * ra.AngleStep) * angledir * Math.PI / 180) + yc;
+                g.DrawString(ra.RMarkFull[i].ToString(), ra.RTickStyle.TextFont, aBrush,
+                    new PointF(x, y - tickFontSize.Height / 2), sFormat);
+            }
         }
 
         #endregion
@@ -871,6 +940,49 @@ namespace Readearth.Chart2D
             aPoint.Y = PlotArea.Bottom - (pt.Y - y2a.Y2LimMin) * PlotArea.Height / (y2a.Y2LimMax - y2a.Y2LimMin);
             return aPoint;
         }
+
+        /// <summary>
+        /// 绘制过程中极坐标的坐标转换
+        /// </summary>
+        /// <param name="pt">x为角度，y为对应值的PointF</param>
+        /// <param name="cs"></param>
+        /// <param name="ra"></param>
+        /// <returns></returns>
+        internal PointF Point2DR(PointF pt, RAxis ra)
+        {
+            PointF aPoint = new PointF();
+            float xc = polarArea.X + polarArea.Width / 2;
+            float yc = polarArea.Y + polarArea.Height / 2;
+
+            if (ra.AngleDirection == PolarCharts.AngleDirectionEnum.ClockWise)
+            {
+                aPoint.X = RNorm(pt.Y, ra) * (float)Math.Cos((pt.X + ra.StartAngle) * Math.PI / 180) + xc;
+                aPoint.Y = RNorm(pt.Y, ra) * (float)Math.Sin((pt.X + ra.StartAngle) * Math.PI / 180) + yc;
+            }
+            else if (ra.AngleDirection == PolarCharts.AngleDirectionEnum.CounterClockWise)
+            {
+                aPoint.X = RNorm(pt.Y, ra) * (float)Math.Cos((-pt.X - ra.StartAngle) * Math.PI / 180) + xc;
+                aPoint.Y = RNorm(pt.Y, ra) * (float)Math.Sin((-pt.X - ra.StartAngle) * Math.PI / 180) + yc;
+            }
+            return aPoint;
+        }
+        /// <summary>
+        /// 绘制极坐标图时的半径转换
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="ra"></param>
+        /// <returns></returns>
+        internal float RNorm(float r, RAxis ra)
+        {
+            float rNorm = new float();
+            if (r < ra.RMin || r > ra.RMax)
+            {
+                r = Single.NaN;
+            }
+            rNorm = (r - ra.RMin) * polarArea.Width / 2 / (ra.RMax - ra.RMin);
+            return rNorm;
+        }
+
 
         /// <summary>
         /// 样式复制，包括绘图区大小、颜色和边距

@@ -40,12 +40,12 @@ namespace Readearth.Chart2D
         /// <param name="ya"></param>
         /// <param name="y2a"></param>
         /// <returns></returns>
-        internal static bool AxesFitCheck(List<DataCollection> dclist, XAxis xa, YAxis ya, Y2Axis y2a)
+        internal static bool AxesFitCheck(List<DataCollection> dclist, XAxis xa, YAxis ya, Y2Axis y2a, RAxis ra)
         {
-            bool openFit, xopenfit, yopenfit, y2openfit;
-            openFit = xopenfit = yopenfit = y2openfit = false;
-            float xmax, xmin, ymax, ymin, y2max, y2min;
-            xmax = xmin = ymax = ymin = y2max = y2min = -99;
+            bool openFit, xopenfit, yopenfit, y2openfit, ropenfit;
+            openFit = xopenfit = yopenfit = y2openfit = ropenfit = false;
+            float xmax, xmin, ymax, ymin, y2max, y2min, rmin, rmax;
+            xmax = xmin = ymax = ymin = y2max = y2min = rmin = rmax = -99;
             //含柱状图时,底轴两侧预留一个tick
             float barmin, barmax;
             barmin = barmax = -99;
@@ -54,7 +54,6 @@ namespace Readearth.Chart2D
             {
                 foreach (DataCollection dc in dclist)
                 {
-                    #region 叠加型
                     #region AreaChart
                     if (dc.ChartType == Chart2DTypeEnum.AreaChart)
                     {
@@ -104,6 +103,17 @@ namespace Readearth.Chart2D
                                     PointF p = (PointF)ds.PointList[i];
                                     xmax = (p.X > xmax) ? p.X : xmax;
                                     xmin = (p.X < xmin) ? p.X : xmin;
+
+                                    if (!ds.IsY2Data)
+                                    {
+                                        ymax = (p.Y > ymax) ? p.Y : ymax;
+                                        ymin = (p.Y < ymin) ? p.Y : ymin;
+                                    }
+                                    else
+                                    {
+                                        y2max = (p.Y > y2max) ? p.Y : y2max;
+                                        y2min = (p.Y < y2min) ? p.Y : y2min;
+                                    }
                                     ySum[i] += p.Y;
                                 }
                             }
@@ -124,7 +134,7 @@ namespace Readearth.Chart2D
                                 } 
                             }
                         }
-                        else
+                        else if (((DataCollectionArea)dc).AreaChartType == AreaCharts.AreaChartTypeEnum.PercentArea)
                         {
                             //纵轴表示百分比
                             float ytick = 0.2f;
@@ -149,7 +159,6 @@ namespace Readearth.Chart2D
                     {
                         havebar = true;
                         int nPoints = 0;
-                        bool isConsistant = true;
                         bool isY2 = false;
                         foreach (DataSeries ds in dc.DataSeriesList)
                         {
@@ -225,6 +234,16 @@ namespace Readearth.Chart2D
                                     barmax = (p.X > barmax) ? p.X : barmax;
                                     barmin = (p.X < barmin) ? p.X : barmin;
 
+                                    if (!ds.IsY2Data)
+                                    {
+                                        ymax = (p.Y > ymax) ? p.Y : ymax;
+                                        ymin = (p.Y < ymin) ? p.Y : ymin;
+                                    }
+                                    else
+                                    {
+                                        y2max = (p.Y > y2max) ? p.Y : y2max;
+                                        y2min = (p.Y < y2min) ? p.Y : y2min;
+                                    }
                                     ySum[i] += p.Y;
                                 }
                             }
@@ -269,6 +288,8 @@ namespace Readearth.Chart2D
                                 for (int i = 0; i < nPoints; i++)
                                 {
                                     PointF p = (PointF)ds.PointList[i];
+                                    xmax = (p.Y > xmax) ? p.Y : xmax;
+                                    xmin = (p.Y < xmin) ? p.Y : xmin;
                                     xSum[i] += p.Y;
                                     ymax = (p.X > ymax) ? p.X : ymax;
                                     ymin = (p.X < ymin) ? p.X : ymin;
@@ -286,8 +307,8 @@ namespace Readearth.Chart2D
                     }
                     #endregion
 
-                    #endregion
-                    else
+                    #region LineChart
+                    else if (dc.ChartType == Chart2DTypeEnum.LineChart)
                     {
                         try
                         {
@@ -385,9 +406,60 @@ namespace Readearth.Chart2D
                             }
                         }
                     }
+                    #endregion
+
+                    #region PolarChart
+                    else if (dc.ChartType == Chart2DTypeEnum.PolorChart)
+                    {
+                        try
+                        {
+                            DataSeries ds1 = (DataSeries)dc.DataSeriesList[0];
+                            if (rmin == -99 && rmin == -99)
+                                rmax = rmin = ((PointF)ds1.PointList[0]).Y;
+                        }
+                        catch
+                        {
+                            if (rmax == -99 && rmin == -99)
+                                rmax = rmin = 0;
+                        }
+
+                        if (((DataCollectionPolar)dc).PolarChartType == PolarCharts.PolarChartTypeEnum.Rose)
+                        {
+                            rmin = 0;
+                            Dictionary<float, float> rSum = new Dictionary<float, float>();
+                            foreach (DataSeries ds in dc.DataSeriesList)
+                            {
+                                foreach (PointF p in ds.PointList)
+                                {
+                                    if (rSum.ContainsKey(p.X))
+                                        rSum[p.X] += p.Y;
+                                    else
+                                        rSum.Add(p.X, p.Y);
+                                }
+                            }
+                            foreach (float r in rSum.Values)
+                            {
+                                rmax = (r > rmax) ? r : rmax;
+                                rmin = (r < rmin) ? r : rmin;
+                            }
+                        
+                        }
+                        else
+                        {
+                            foreach (DataSeries ds in dc.DataSeriesList)
+                            {
+                                foreach (PointF p in ds.PointList)
+                                {
+                                    rmax = (p.Y > rmax) ? p.Y : rmax;
+                                    rmin = (p.Y < rmin) ? p.Y : rmin;
+                                }
+                            }
+                        }
+                    }
+                    #endregion
                 }
                 //自适应触发条件：极值不满足或范围过大
-                if (xa.XLimMax < xmax || xa.XLimMin > xmin || (xa.XLimMax - xa.XLimMin) / 2 > (xmax - xmin))
+                if (xa.XLimMax < xmax || xa.XLimMin > xmin || (xa.XLimMax - xa.XLimMin) / 2 > (xmax - xmin) || xa.XTick > (xa.XLimMax - xa.XLimMin))
                 {
                     xopenfit = true;
                     float xtick = 0;
@@ -396,7 +468,7 @@ namespace Readearth.Chart2D
                     xa.XLimMin = xmin;
                     xa.XTick = xtick;
                 }
-                if (ya.YLimMax < ymax || ya.YLimMin > ymin || (ya.YLimMax - ya.YLimMin) / 2 > (ymax - ymin))
+                if (ya.YLimMax < ymax || ya.YLimMin > ymin || (ya.YLimMax - ya.YLimMin) / 2 > (ymax - ymin) || ya.YTick > (ya.YLimMax - ya.YLimMin))
                 {
                     yopenfit = true;
                     float ytick = 0;
@@ -405,7 +477,7 @@ namespace Readearth.Chart2D
                     ya.YLimMin = ymin;
                     ya.YTick = ytick;
                 }
-                if (y2a.Y2LimMax < y2max || y2a.Y2LimMin > y2min || (y2a.Y2LimMax - y2a.Y2LimMin) / 2 > (y2max - y2min))
+                if (y2a.Y2LimMax < y2max || y2a.Y2LimMin > y2min || (y2a.Y2LimMax - y2a.Y2LimMin) / 2 > (y2max - y2min) || y2a.Y2Tick > (y2a.Y2LimMax - y2a.Y2LimMin))
                 {
                     y2openfit = true;
                     float y2tick = 0;
@@ -414,6 +486,16 @@ namespace Readearth.Chart2D
                     y2a.Y2LimMin = y2min;
                     y2a.Y2Tick = y2tick;
                 }
+                if (ra.RMax < rmax || ra.RMin > rmin || (ra.RMax - ra.RMin) / 2 > (rmax - rmin) || ra.RTick > (ra.RMax - ra.RMin))
+                {
+                    ropenfit = true;
+                    float rtick = 0;
+                    FitModify(ref rmax, ref rmin, out rtick);
+                    ra.RMax = rmax;
+                    ra.RMin = rmin;
+                    ra.RTick = rtick;
+                }
+
                 //Bar的一侧宽度问题，预留一个tick
                 if (havebar)
                 {
@@ -455,7 +537,7 @@ namespace Readearth.Chart2D
                 }
             }
             catch { }
-            if (xopenfit || yopenfit || y2openfit)
+            if (xopenfit || yopenfit || y2openfit || ropenfit)
                 openFit = true;
             return openFit;
         }

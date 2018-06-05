@@ -2,3 +2,8 @@ E:\1Readearth\Charts\ChartProduce\Chart2DLib\bin\Debug\Readearth.Chart2D.dll
 E:\1Readearth\Charts\ChartProduce\Chart2DLib\bin\Debug\Readearth.Chart2D.pdb
 E:\1Readearth\Charts\ChartProduce\Chart2DLib\obj\Debug\Readearth.Chart2D.dll
 E:\1Readearth\Charts\ChartProduce\Chart2DLib\obj\Debug\Readearth.Chart2D.pdb
+E:\1Readearth\OceansLab\Charts\ChartProduce\Chart2DLib\bin\Debug\Readearth.Chart2D.dll
+E:\1Readearth\OceansLab\Charts\ChartProduce\Chart2DLib\bin\Debug\Readearth.Chart2D.pdb
+E:\1Readearth\OceansLab\Charts\ChartProduce\Chart2DLib\obj\Debug\Chart2D.csprojResolveAssemblyReference.cache
+E:\1Readearth\OceansLab\Charts\ChartProduce\Chart2DLib\obj\Debug\Readearth.Chart2D.dll
+E:\1Readearth\OceansLab\Charts\ChartProduce\Chart2DLib\obj\Debug\Readearth.Chart2D.pdb

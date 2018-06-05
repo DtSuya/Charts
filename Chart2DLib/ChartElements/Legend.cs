@@ -350,7 +350,10 @@ namespace Readearth.Chart2D.ChartElements
                     int row = 1;
                     foreach (DataCollection dc in dclist)
                     {
-                        if(dc.ChartType == Chart2DTypeEnum.LineChart)
+                        //判断图例的形状：线形or矩形
+                        bool isline = JudgeLegendForm(dc);
+
+                        if (isline)
                         {
                             foreach (DataSeries ds in dc.DataSeriesList)
                             {
@@ -375,7 +378,7 @@ namespace Readearth.Chart2D.ChartElements
                                 row++;
                             }
                         }
-                        else if (dc.ChartType == Chart2DTypeEnum.AreaChart || dc.ChartType == Chart2DTypeEnum.BarChart || dc.ChartType == Chart2DTypeEnum.PieChart)
+                        else
                         {
                             int n = 0;
                             foreach (DataSeries ds in dc.DataSeriesList)
@@ -413,7 +416,10 @@ namespace Readearth.Chart2D.ChartElements
                     int row = 1; int col = 1; float length = 0;
                     foreach (DataCollection dc in dclist)
                     {
-                        if (dc.ChartType == Chart2DTypeEnum.LineChart)
+                        //判断图例的形状：线形or矩形
+                        bool isline = JudgeLegendForm(dc);
+
+                        if (isline)
                         {
                             for (int i = 0; i < dc.DataSeriesList.Count; i++)
                             {
@@ -449,7 +455,7 @@ namespace Readearth.Chart2D.ChartElements
                                 length += alength;
                             }
                         }
-                        else if (dc.ChartType == Chart2DTypeEnum.AreaChart || dc.ChartType == Chart2DTypeEnum.BarChart || dc.ChartType == Chart2DTypeEnum.PieChart)
+                        else
                         {
                             int n = 0;
                             for (int i = 0; i < dc.DataSeriesList.Count; i++)
@@ -498,6 +504,31 @@ namespace Readearth.Chart2D.ChartElements
             }
             aPen.Dispose();
             aBrush.Dispose();
+        }
+
+        //判断图例的形状：线形or矩形
+        private bool JudgeLegendForm(DataCollection dc)
+        {
+            bool likeline = true;
+            switch (dc.ChartType)
+            {
+                case Chart2DTypeEnum.LineChart:
+                    likeline = true;
+                    break;
+                case Chart2DTypeEnum.AreaChart:
+                case Chart2DTypeEnum.BarChart:
+                case Chart2DTypeEnum.PieChart:
+                    likeline = false;
+                    break;
+                case Chart2DTypeEnum.PolorChart:
+                    DataCollectionPolar dcp = dc as DataCollectionPolar;
+                    if (dcp.PolarChartType == PolarCharts.PolarChartTypeEnum.Radar || dcp.PolarChartType == PolarCharts.PolarChartTypeEnum.Spline)
+                        likeline = true;
+                    else if (dcp.PolarChartType == PolarCharts.PolarChartTypeEnum.RadarPolygon  || dcp.PolarChartType == PolarCharts.PolarChartTypeEnum.Rose)
+                        likeline = false;
+                    break;
+            }
+            return likeline;
         }
 
         public Legend Clone()

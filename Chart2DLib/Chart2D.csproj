@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Additional\DataDeal.cs" />
     <Compile Include="AreaCharts.cs" />
     <Compile Include="BarCharts.cs" />
     <Compile Include="Chart2D.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Data\DataCollectionArea.cs" />
     <Compile Include="Data\DataCollectionBar.cs" />
     <Compile Include="Data\DataCollectionPie.cs" />
+    <Compile Include="Data\DataCollectionPolar.cs" />
     <Compile Include="Data\DataSeries.cs" />
     <Compile Include="Additional\DataSource.cs" />
     <Compile Include="Additional\Enumproperty.cs" />
